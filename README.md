@@ -15,12 +15,17 @@
 }
 
 body {
-  height: 100vh;
+  min-height: 100vh;
   font-family: 'Poppins', sans-serif;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
   background-size: 400% 400%;
-  animation: gradientBG 10s ease infinite;
+  animation: gradientBG 12s ease infinite;
 }
 
 @keyframes gradientBG {
@@ -31,7 +36,7 @@ body {
 
 /* intro */
 #intro {
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   display: flex;
@@ -40,6 +45,8 @@ body {
   color: white;
   font-size: 2rem;
   text-align: center;
+  background: rgba(0,0,0,0.3);
+  z-index: 10;
   animation: fadeOut 3s forwards;
   animation-delay: 2.5s;
 }
@@ -48,26 +55,22 @@ body {
   to {opacity: 0; visibility: hidden;}
 }
 
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-
+/* card */
 .card {
+  position: relative;
   padding: 30px;
   text-align: center;
-  background: rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.25);
   border-radius: 20px;
-  backdrop-filter: blur(15px);
   box-shadow: 0 8px 30px rgba(0,0,0,0.2);
   color: white;
-  max-width: 350px;
-  display: none;
+  max-width: 420px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
 }
 
-h1 { color: #ff6f91; }
+h1 { color: #ff4d6d; }
 
 .sub {
   font-size: 0.85rem;
@@ -75,7 +78,7 @@ h1 { color: #ff6f91; }
   margin-bottom: 15px;
 }
 
-/* animated text */
+/* text animation */
 .line {
   opacity: 0;
   transform: translateY(10px);
@@ -89,14 +92,9 @@ h1 { color: #ff6f91; }
   }
 }
 
-.highlight {
-  color: #ff6f91;
-  font-weight: 600;
-}
-
 /* buttons */
 .btn {
-  margin-top: 15px;
+  margin-top: 10px;
   padding: 10px 18px;
   border: none;
   border-radius: 25px;
@@ -105,7 +103,7 @@ h1 { color: #ff6f91; }
 }
 
 .yes {
-  background: #ff6f91;
+  background: #ff4d6d;
   color: white;
 }
 
@@ -120,28 +118,30 @@ h1 { color: #ff6f91; }
   line-height: 1.5;
 }
 
-/* heart explosion */
-.heart {
-  position: absolute;
-  font-size: 20px;
-  animation: explode 1s ease forwards;
-}
-
-@keyframes explode {
-  0% {opacity:1;}
-  100% {opacity:0; transform: translate(var(--x), var(--y));}
-}
-
-/* floating hearts */
+/* floating hearts (LESS for performance) */
 .float-heart {
-  position: absolute;
+  position: fixed;
   bottom: -20px;
-  font-size: 18px;
-  animation: rise 6s linear infinite;
+  font-size: 16px;
+  animation: rise 6s linear forwards;
 }
 
 @keyframes rise {
   to {transform: translateY(-110vh);}
+}
+
+/* click hearts */
+.heart {
+  position: fixed;
+  font-size: 18px;
+  animation: explode 0.8s ease forwards;
+}
+
+@keyframes explode {
+  to {
+    opacity: 0;
+    transform: translate(var(--x), var(--y));
+  }
 }
 </style>
 </head>
@@ -152,7 +152,6 @@ h1 { color: #ff6f91; }
   For Veda 🌸<br><small style="font-size:1rem;">wait a second...</small>
 </div>
 
-<div class="container">
 <div class="card" id="card">
 
   <h1>For You 🌸</h1>
@@ -160,34 +159,25 @@ h1 { color: #ff6f91; }
 
   <div id="text"></div>
 
-  <p style="margin-top:15px;"><b>Did this make you feel special? 😊</b></p>
+  <div style="margin-top:20px; position: relative; height: 80px;">
+    <p><b>Did this make you feel special? 😊</b></p>
 
-  <button class="btn yes" onclick="yesClick(event)">Yes 💖</button>
-  <button class="btn no" id="noBtn">No 😅</button>
+    <div style="margin-top:10px;">
+      <button class="btn yes" onclick="yesClick(event)">Yes 💖</button>
+      <button class="btn no" id="noBtn">No 😅</button>
+    </div>
+  </div>
 
   <div id="result"></div>
 
 </div>
-</div>
 
 <script>
-// show card
-setTimeout(()=>{
-  document.getElementById("card").style.display="block";
-  showText();
-},2800);
 
-// floating hearts
-setInterval(()=>{
-  let h=document.createElement("div");
-  h.className="float-heart";
-  h.innerHTML="❤️";
-  h.style.left=Math.random()*100+"vw";
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(),6000);
-},800);
+// show text after intro
+setTimeout(showText, 2800);
 
-// TEXT LINES
+// text lines
 const lines = [
   "Good morning Veda ❤️",
   "I don’t know why… but I felt like writing this.",
@@ -202,8 +192,7 @@ const lines = [
   "And maybe that’s what makes it special.",
   "✨ Keep smiling ✨",
   "Because it actually changes the vibe around you.",
-  "So yeah… just stay the way you are.",
-  "That’s more than enough."
+  "So yeah… just stay the way you are."
 ];
 
 function showText(){
@@ -212,24 +201,42 @@ function showText(){
   lines.forEach((line,i)=>{
     let p=document.createElement("p");
     p.className="line";
-    p.style.animationDelay=(i*0.8)+"s";
+    p.style.animationDelay=(i*0.5)+"s";
     p.innerHTML=line;
     container.appendChild(p);
+
+    setTimeout(()=>{
+      container.scrollTop = container.scrollHeight;
+    }, i*500);
   });
 }
+
+// floating hearts (LIMITED)
+setInterval(()=>{
+  let hearts = document.querySelectorAll(".float-heart");
+  if (hearts.length > 12) return;
+
+  let h=document.createElement("div");
+  h.className="float-heart";
+  h.innerHTML="❤️";
+  h.style.left=Math.random()*100+"vw";
+  document.body.appendChild(h);
+
+  setTimeout(()=>h.remove(),6000);
+},1500);
 
 // YES click
 function yesClick(e){
   document.getElementById("result").innerHTML =
-  "That’s all I wanted 💖<br><br>...and yeah, I meant what I said that day.<br><br><b>Maybe this is just the beginning ✨</b>";
+  "That’s all I wanted 💖<br><br>...and yeah, I meant what I said that day.";
 
-  for(let i=0;i<20;i++){
+  for(let i=0;i<10;i++){
     let heart=document.createElement("div");
     heart.className="heart";
     heart.innerHTML="❤️";
 
-    let x=(Math.random()-0.5)*200+"px";
-    let y=(Math.random()-0.5)*200+"px";
+    let x=(Math.random()-0.5)*150+"px";
+    let y=(Math.random()-0.5)*150+"px";
 
     heart.style.setProperty('--x',x);
     heart.style.setProperty('--y',y);
@@ -238,17 +245,18 @@ function yesClick(e){
     heart.style.top=e.clientY+"px";
 
     document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(),1000);
+    setTimeout(()=>heart.remove(),800);
   }
 }
 
-// NO button runs
+// NO button runs (but stays visible)
 let noBtn=document.getElementById("noBtn");
 noBtn.addEventListener("mouseover",()=>{
   noBtn.style.position="absolute";
-  noBtn.style.left=Math.random()*80+"%";
-  noBtn.style.top=Math.random()*80+"%";
+  noBtn.style.left=Math.random()*70+"%";
+  noBtn.style.top=Math.random()*40+"%";
 });
+
 </script>
 
 </body>
