@@ -29,7 +29,7 @@ body {
   100% {background-position:0% 50%;}
 }
 
-/* intro screen */
+/* intro */
 #intro {
   position: absolute;
   width: 100%;
@@ -48,7 +48,6 @@ body {
   to {opacity: 0; visibility: hidden;}
 }
 
-/* main card */
 .container {
   display: flex;
   justify-content: center;
@@ -76,9 +75,18 @@ h1 { color: #ff6f91; }
   margin-bottom: 15px;
 }
 
-.text p {
-  margin: 6px 0;
-  font-size: 0.95rem;
+/* animated text */
+.line {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeUp 0.8s forwards;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .highlight {
@@ -86,6 +94,7 @@ h1 { color: #ff6f91; }
   font-weight: 600;
 }
 
+/* buttons */
 .btn {
   margin-top: 15px;
   padding: 10px 18px;
@@ -111,7 +120,7 @@ h1 { color: #ff6f91; }
   line-height: 1.5;
 }
 
-/* hearts */
+/* heart explosion */
 .heart {
   position: absolute;
   font-size: 20px;
@@ -139,7 +148,6 @@ h1 { color: #ff6f91; }
 
 <body>
 
-<!-- INTRO -->
 <div id="intro">
   For Veda 🌸<br><small style="font-size:1rem;">wait a second...</small>
 </div>
@@ -150,21 +158,7 @@ h1 { color: #ff6f91; }
   <h1>For You 🌸</h1>
   <div class="sub">open this slowly...</div>
 
-  <div class="text">
-
-    <p><b>Good morning Veda ❤️</b></p><br>
-
-    <p>You’re actually a really good human being.</p>
-    <p>The way you think... it’s rare.</p><br>
-
-    <p>There’s something about your vibe,</p>
-    <p>it’s calm... and kinda addictive 🥺</p><br>
-
-    <p style="opacity:0.9;">Not gonna lie... talking to you feels different.</p><br>
-
-    <p class="highlight">✨ Keep smiling ✨</p>
-
-  </div>
+  <div id="text"></div>
 
   <p style="margin-top:15px;"><b>Did this make you feel special? 😊</b></p>
 
@@ -177,10 +171,11 @@ h1 { color: #ff6f91; }
 </div>
 
 <script>
-// show card after intro
-setTimeout(() => {
-  document.getElementById("card").style.display = "block";
-}, 2800);
+// show card
+setTimeout(()=>{
+  document.getElementById("card").style.display="block";
+  showText();
+},2800);
 
 // floating hearts
 setInterval(()=>{
@@ -191,6 +186,37 @@ setInterval(()=>{
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),6000);
 },800);
+
+// TEXT LINES
+const lines = [
+  "Good morning Veda ❤️",
+  "I don’t know why… but I felt like writing this.",
+  "You’re actually a really good human being.",
+  "The way you think… it’s rare.",
+  "And honestly… not everyone has that.",
+  "There’s something about your vibe,",
+  "it’s calm… a little different…",
+  "and yeah… kinda addictive 🥺",
+  "Not gonna lie… talking to you feels different.",
+  "In a way I didn’t expect.",
+  "And maybe that’s what makes it special.",
+  "✨ Keep smiling ✨",
+  "Because it actually changes the vibe around you.",
+  "So yeah… just stay the way you are.",
+  "That’s more than enough."
+];
+
+function showText(){
+  let container=document.getElementById("text");
+
+  lines.forEach((line,i)=>{
+    let p=document.createElement("p");
+    p.className="line";
+    p.style.animationDelay=(i*0.8)+"s";
+    p.innerHTML=line;
+    container.appendChild(p);
+  });
+}
 
 // YES click
 function yesClick(e){
@@ -216,13 +242,12 @@ function yesClick(e){
   }
 }
 
-// NO button runs away
-let noBtn = document.getElementById("noBtn");
-
-noBtn.addEventListener("mouseover", () => {
-  noBtn.style.position = "absolute";
-  noBtn.style.left = Math.random() * 80 + "%";
-  noBtn.style.top = Math.random() * 80 + "%";
+// NO button runs
+let noBtn=document.getElementById("noBtn");
+noBtn.addEventListener("mouseover",()=>{
+  noBtn.style.position="absolute";
+  noBtn.style.left=Math.random()*80+"%";
+  noBtn.style.top=Math.random()*80+"%";
 });
 </script>
 
