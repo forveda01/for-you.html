@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For You</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
 *{
@@ -19,16 +19,18 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
-  background:black;
+  background:#000;
   overflow:hidden;
   color:white;
 }
 
-/* 🌌 Stars */
+/* 🌌 Background Stars */
 .stars{
   position:absolute;
   width:100%;
   height:100%;
+  overflow:hidden;
+  z-index:0;
 }
 
 .star{
@@ -36,8 +38,9 @@ body{
   width:2px;
   height:2px;
   background:white;
-  opacity:0.7;
-  animation:twinkle 2s infinite ease-in-out;
+  border-radius:50%;
+  opacity:0.5;
+  animation:twinkle 3s infinite ease-in-out;
 }
 
 @keyframes twinkle{
@@ -50,55 +53,69 @@ body{
   position:relative;
   z-index:2;
   text-align:center;
+  max-width:700px;
   padding:20px;
-  max-width:90%;
+  animation:zoomIn 3s ease;
 }
 
-/* ✨ Main Heading */
+@keyframes zoomIn{
+  from{transform:scale(0.95);}
+  to{transform:scale(1);}
+}
+
+/* ✨ Heading */
 .main{
-  font-family:'Playfair Display',serif;
-  font-size:34px;
-  margin-bottom:20px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:40px;
+  margin-bottom:25px;
+  letter-spacing:1px;
   opacity:0;
   animation:fadeUp 1s forwards;
 }
 
-/* 💖 Highlight line */
+/* 💖 Hero line */
 .highlight{
-  font-family:'Playfair Display',serif;
-  font-size:36px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:48px;
   font-weight:700;
   margin:20px 0;
   opacity:0;
   animation:fadeUp 1s forwards;
-  color:#ffffff;
 
-  text-shadow:
-    0 0 8px rgba(255,255,255,0.8),
-    0 0 20px rgba(255,255,255,0.6),
-    0 0 35px rgba(255,255,255,0.4);
+  background:linear-gradient(90deg,#ffffff,#d1d5db,#ffffff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+
+  text-shadow:0 0 20px rgba(255,255,255,0.35);
 }
 
-/* ✍ Normal lines */
+/* ✍ Other lines */
 .line{
   font-family:'Inter',sans-serif;
-  font-size:18px;
+  font-size:19px;
   margin:10px 0;
-  opacity:0.85;
   opacity:0;
   animation:fadeUp 1s forwards;
+  color:#d1d5db;
 }
 
-/* ✨ Animation */
+/* 🎬 Animation */
 @keyframes fadeUp{
   from{
     opacity:0;
-    transform:translateY(20px);
+    transform:translateY(25px);
   }
   to{
     opacity:1;
     transform:translateY(0);
   }
+}
+
+/* 📱 Mobile Fix */
+@media(max-width:500px){
+  .main{font-size:30px;}
+  .highlight{font-size:34px;}
+  .line{font-size:16px;}
 }
 
 </style>
@@ -146,13 +163,13 @@ than figured out.
 
 <script>
 
-/* ⭐ Stars generator */
-for(let i=0;i<100;i++){
+/* 🌠 Better Stars */
+for(let i=0;i<120;i++){
   let star=document.createElement("div");
   star.className="star";
   star.style.top=Math.random()*100+"vh";
   star.style.left=Math.random()*100+"vw";
-  star.style.animationDuration=(Math.random()*3+1)+"s";
+  star.style.animationDuration=(Math.random()*4+2)+"s";
   document.getElementById("stars").appendChild(star);
 }
 
