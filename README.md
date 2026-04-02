@@ -24,12 +24,11 @@ body{
   color:white;
 }
 
-/* 🌌 Background Stars */
+/* 🌌 Stars */
 .stars{
   position:absolute;
   width:100%;
   height:100%;
-  overflow:hidden;
   z-index:0;
 }
 
@@ -55,7 +54,7 @@ body{
   text-align:center;
   max-width:700px;
   padding:20px;
-  animation:zoomIn 3s ease;
+  animation:zoomIn 2.5s ease;
 }
 
 @keyframes zoomIn{
@@ -68,12 +67,11 @@ body{
   font-family:'Cormorant Garamond',serif;
   font-size:40px;
   margin-bottom:25px;
-  letter-spacing:1px;
   opacity:0;
   animation:fadeUp 1s forwards;
 }
 
-/* 💖 Hero line */
+/* 💖 Highlight */
 .highlight{
   font-family:'Cormorant Garamond',serif;
   font-size:48px;
@@ -89,7 +87,7 @@ body{
   text-shadow:0 0 20px rgba(255,255,255,0.35);
 }
 
-/* ✍ Other lines */
+/* ✍ Lines */
 .line{
   font-family:'Inter',sans-serif;
   font-size:19px;
@@ -111,7 +109,7 @@ body{
   }
 }
 
-/* 📱 Mobile Fix */
+/* 📱 Mobile */
 @media(max-width:500px){
   .main{font-size:30px;}
   .highlight{font-size:34px;}
@@ -152,18 +150,14 @@ not everything really deserves space in your mind.
 </div>
 
 <div class="line" style="animation-delay:6.5s;">
-Some things are better felt…
-</div>
-
-<div class="line" style="animation-delay:7.5s;">
-than figured out.
+And yeah… if your brain starts overthinking again, just tell it to chill for a bit 😄
 </div>
 
 </div>
 
 <script>
 
-/* 🌠 Better Stars */
+/* 🌠 Stars */
 for(let i=0;i<120;i++){
   let star=document.createElement("div");
   star.className="star";
