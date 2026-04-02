@@ -17,11 +17,15 @@
 body {
   min-height: 100vh;
   font-family: 'Poppins', sans-serif;
+
   overflow-x: hidden;
   overflow-y: auto;
+
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+
+  padding: 40px 0;
 
   background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
   background-size: 400% 400%;
@@ -58,19 +62,30 @@ body {
 /* card */
 .card {
   position: relative;
-  padding: 30px;
+  padding: 35px;
   text-align: center;
+
   background: rgba(255,255,255,0.25);
   border-radius: 20px;
   box-shadow: 0 8px 30px rgba(0,0,0,0.2);
   color: white;
-  max-width: 420px;
-  width: 90%;
-  max-height: 80vh;
+
+  width: 92%;
+  max-width: 550px;
+
+  max-height: 85vh;
   overflow-y: auto;
+
+  transition: transform 0.3s ease;
 }
 
-h1 { color: #ff4d6d; }
+.card:hover {
+  transform: scale(1.02);
+}
+
+h1 {
+  color: #ff4d6d;
+}
 
 .sub {
   font-size: 0.85rem;
@@ -118,7 +133,7 @@ h1 { color: #ff4d6d; }
   line-height: 1.5;
 }
 
-/* floating hearts (LESS for performance) */
+/* floating hearts */
 .float-heart {
   position: fixed;
   bottom: -20px;
@@ -149,7 +164,7 @@ h1 { color: #ff4d6d; }
 <body>
 
 <div id="intro">
-  For Veda 🌸<br><small style="font-size:1rem;">wait a second...</small>
+  For you 🌸<br><small style="font-size:1rem;">wait a second...</small>
 </div>
 
 <div class="card" id="card">
@@ -159,7 +174,7 @@ h1 { color: #ff4d6d; }
 
   <div id="text"></div>
 
-  <div style="margin-top:20px; position: relative; height: 80px;">
+  <div style="margin-top:20px; position: relative; height: 90px;">
     <p><b>Did this make you feel special? 😊</b></p>
 
     <div style="margin-top:10px;">
@@ -211,10 +226,10 @@ function showText(){
   });
 }
 
-// floating hearts (LIMITED)
+// floating hearts (optimized)
 setInterval(()=>{
   let hearts = document.querySelectorAll(".float-heart");
-  if (hearts.length > 12) return;
+  if (hearts.length > 10) return;
 
   let h=document.createElement("div");
   h.className="float-heart";
@@ -249,7 +264,7 @@ function yesClick(e){
   }
 }
 
-// NO button runs (but stays visible)
+// NO button movement
 let noBtn=document.getElementById("noBtn");
 noBtn.addEventListener("mouseover",()=>{
   noBtn.style.position="absolute";
