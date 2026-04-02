@@ -71,26 +71,36 @@ h1{color:#ff4d6d;}
 
 /* buttons */
 .btn{
-  padding:12px 20px;
+  padding:12px 22px;
   border:none;
   border-radius:30px;
   font-size:20px;
   cursor:pointer;
   margin:10px;
+  min-width:80px;
 }
 
+/* RED BUTTON */
 .red{
   background:#ff4d6d;
   color:white;
 }
 
+/* WHITE BUTTON */
 .white{
   background:white;
   color:#333;
-  border:2px solid #eee;
+  border:2px solid #ddd;
   box-shadow:0 4px 10px rgba(0,0,0,0.1);
 }
 
+/* force white heart look */
+.heart-white{
+  color:white;
+  text-shadow:0 0 2px #999;
+}
+
+/* result */
 #result{margin-top:20px;line-height:1.6;}
 #hidden{margin-top:15px;opacity:0;transition:0.5s;}
 
@@ -131,8 +141,13 @@ h1{color:#ff4d6d;}
   <p><b>If this made you feel a little special…</b></p>
   <p>tap ❤️… otherwise 🤍</p>
 
+  <!-- RED HEART -->
   <button class="btn red" onclick="yesClick(event)">❤️</button>
-  <button class="btn white" onclick="noClick()">🤍</button>
+
+  <!-- WHITE HEART -->
+  <button class="btn white" onclick="noClick()">
+    <span class="heart-white">❤</span>
+  </button>
 </div>
 
 <div id="result"></div>
@@ -184,7 +199,7 @@ setInterval(()=>{
   setTimeout(()=>h.remove(),6000);
 },1800);
 
-// YES
+// YES CLICK
 function yesClick(e){
   document.getElementById("result").innerHTML=
   "That’s all I wanted 💖<br><br>...and yeah, I meant what I said that day.";
@@ -198,7 +213,7 @@ function yesClick(e){
   },2000);
 }
 
-// NO (simple, natural)
+// NO CLICK (simple)
 function noClick(){
   document.getElementById("result").innerHTML=
   "Hmm okay 🤍<br><br>" +
