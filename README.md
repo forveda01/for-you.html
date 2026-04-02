@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For You 🌸</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -15,120 +15,97 @@ body{
   font-family:'Poppins',sans-serif;
   display:flex;
   justify-content:center;
-  align-items:flex-start;
-  padding:40px 0;
-  overflow-x:hidden;
+  align-items:center;
+  padding:20px;
 
-  background:linear-gradient(-45deg,#ff9a9e,#fad0c4,#fbc2eb,#a18cd1);
-  background-size:400% 400%;
-  animation:gradientBG 12s ease infinite;
+  background:linear-gradient(135deg,#5f6dfc,#7c3aed);
+  color:#fff;
 }
 
-@keyframes gradientBG{
-  0%{background-position:0% 50%;}
-  50%{background-position:100% 50%;}
-  100%{background-position:0% 50%;}
-}
-
+/* intro */
 #intro{
   position:fixed;
-  width:100%;
-  height:100%;
+  inset:0;
   display:flex;
   justify-content:center;
   align-items:center;
-  color:white;
-  font-size:2rem;
-  text-align:center;
-  background:rgba(0,0,0,0.3);
+  font-size:1.8rem;
+  background:rgba(0,0,0,0.4);
+  backdrop-filter:blur(10px);
   z-index:10;
-  animation:fadeOut 3s forwards;
-  animation-delay:2.5s;
+  animation:fadeOut 2.5s forwards;
+  animation-delay:2s;
 }
 @keyframes fadeOut{to{opacity:0;visibility:hidden;}}
 
+/* card */
 .card{
-  padding:35px;
-  text-align:center;
-  background:rgba(255,255,255,0.25);
-  border-radius:20px;
-  box-shadow:0 8px 30px rgba(0,0,0,0.2);
-  color:white;
-  width:92%;
-  max-width:550px;
+  width:100%;
+  max-width:650px;
   max-height:85vh;
   overflow-y:auto;
+
+  padding:45px 40px;
+
+  background:rgba(255,255,255,0.1);
+  backdrop-filter:blur(18px);
+
+  border-radius:24px;
+  border:1px solid rgba(255,255,255,0.15);
+
+  box-shadow:0 20px 50px rgba(0,0,0,0.25);
+  text-align:center;
 }
 
-h1{color:#ff4d6d;}
+/* heading */
+h1{
+  margin-bottom:25px;
+  font-weight:500;
+}
 
+/* text animation */
 .line{
   opacity:0;
-  transform:translateY(10px);
-  animation:fadeUp 0.8s forwards;
+  transform:translateY(15px);
+  animation:fadeUp 0.7s forwards;
 }
-@keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
+@keyframes fadeUp{
+  to{opacity:1;transform:translateY(0);}
+}
 
 /* buttons */
 .btn{
-  padding:12px 22px;
-  border:none;
+  padding:12px 24px;
   border-radius:30px;
-  font-size:20px;
+  font-size:18px;
+  border:none;
   cursor:pointer;
   margin:10px;
-  min-width:80px;
+  transition:0.25s;
 }
 
-/* RED BUTTON */
 .red{
   background:#ff4d6d;
   color:white;
 }
+.red:hover{transform:scale(1.05);}
 
-/* WHITE BUTTON */
 .white{
   background:white;
   color:#333;
-  border:2px solid #ddd;
-  box-shadow:0 4px 10px rgba(0,0,0,0.1);
 }
-
-/* force white heart look */
-.heart-white{
-  color:white;
-  text-shadow:0 0 2px #999;
-}
+.white:hover{transform:scale(1.05);}
 
 /* result */
 #result{margin-top:20px;line-height:1.6;}
-#hidden{margin-top:15px;opacity:0;transition:0.5s;}
-
-/* floating hearts */
-.float-heart{
-  position:fixed;
-  bottom:-20px;
-  font-size:16px;
-  animation:rise 6s linear forwards;
-}
-@keyframes rise{to{transform:translateY(-110vh);}}
-
-/* explosion */
-.heart{
-  position:fixed;
-  font-size:18px;
-  animation:explode 0.8s ease forwards;
-}
-@keyframes explode{
-  to{opacity:0;transform:translate(var(--x),var(--y));}
-}
+#hidden{margin-top:12px;opacity:0;transition:0.5s;}
 </style>
 </head>
 
 <body>
 
 <div id="intro">
-  For Veda 🌸<br><small>wait a second...</small>
+  For Veda 🌸
 </div>
 
 <div class="card">
@@ -137,17 +114,12 @@ h1{color:#ff4d6d;}
 
 <div id="text"></div>
 
-<div style="margin-top:20px;">
+<div style="margin-top:25px;">
   <p><b>If this made you feel a little special…</b></p>
   <p>tap ❤️… otherwise 🤍</p>
 
-  <!-- RED HEART -->
-  <button class="btn red" onclick="yesClick(event)">❤️</button>
-
-  <!-- WHITE HEART -->
-  <button class="btn white" onclick="noClick()">
-    <span class="heart-white">❤</span>
-  </button>
+  <button class="btn red" onclick="yesClick()">❤️</button>
+  <button class="btn white" onclick="noClick()">🤍</button>
 </div>
 
 <div id="result"></div>
@@ -157,93 +129,71 @@ h1{color:#ff4d6d;}
 
 <script>
 
-// SAME TEXT
-setTimeout(showText,2800);
+// TEXT (UNCHANGED)
+setTimeout(showText,2200);
 
 const lines=[
 "Good morning Veda ❤️",
-"I don’t know why… but I felt like writing this.",
+
+"I don’t really know why… but I felt like writing this.",
+
 "You’re actually a really good human being.",
 "The way you think… it’s rare.",
 "And honestly… not everyone has that.",
+
 "There’s something about your vibe,",
-"it’s calm… a little different…",
-"and yeah… kinda addictive 🥺",
+"it’s a little different… in a way I can’t really explain,",
+"but it makes you stand out without trying.",
+
 "Not gonna lie… talking to you feels different.",
-"In a way I didn’t expect.",
-"And maybe that’s what makes it special.",
+"In a way I didn’t expect… but I don’t mind it.",
+
+"And maybe that’s what makes it interesting.",
+
+"And… don’t overthink things too much,",
+"not everything really deserves that space in your mind.",
+
 "✨ Keep smiling ✨",
-"Because it actually changes the vibe around you.",
+"it actually changes the vibe around you more than you think.",
+
 "So yeah… just stay the way you are."
 ];
 
 function showText(){
   let c=document.getElementById("text");
   lines.forEach((l,i)=>{
-    let p=document.createElement("p");
-    p.className="line";
-    p.style.animationDelay=(i*0.5)+"s";
-    p.innerHTML=l;
-    c.appendChild(p);
+    setTimeout(()=>{
+      let p=document.createElement("p");
+      p.className="line";
+      p.innerHTML=l;
+      c.appendChild(p);
+    }, i*700);
   });
 }
 
-// floating hearts optimized
-setInterval(()=>{
-  if(document.querySelectorAll(".float-heart").length>8) return;
-  let h=document.createElement("div");
-  h.className="float-heart";
-  h.innerHTML="❤️";
-  h.style.left=Math.random()*100+"vw";
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(),6000);
-},1800);
-
-// YES CLICK
-function yesClick(e){
+// YES
+function yesClick(){
   document.getElementById("result").innerHTML=
   "That’s all I wanted 💖<br><br>...and yeah, I meant what I said that day.";
-
-  explode(e);
 
   setTimeout(()=>{
     let h=document.getElementById("hidden");
     h.style.opacity=1;
     typeWriter("...you probably felt it too 😌",h);
-  },2000);
+  },1200);
 }
 
-// NO CLICK (simple)
+// NO
 function noClick(){
   document.getElementById("result").innerHTML=
-  "Hmm okay 🤍<br><br>" +
-  "maybe it wasn't that special...<br>" +
-  "but I still meant what I said 🙂";
-}
-
-// explosion
-function explode(e){
-  for(let i=0;i<10;i++){
-    let heart=document.createElement("div");
-    heart.className="heart";
-    heart.innerHTML="❤️";
-
-    heart.style.setProperty('--x',(Math.random()-0.5)*150+"px");
-    heart.style.setProperty('--y',(Math.random()-0.5)*150+"px");
-
-    heart.style.left=e.clientX+"px";
-    heart.style.top=e.clientY+"px";
-
-    document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(),800);
-  }
+  "Hmm okay 🤍<br><br>maybe it wasn't that special...<br>but I still meant what I said 🙂";
 }
 
 // typing effect
 function typeWriter(text,el,i=0){
   if(i<text.length){
     el.innerHTML+=text.charAt(i);
-    setTimeout(()=>typeWriter(text,el,i+1),40);
+    setTimeout(()=>typeWriter(text,el,i+1),35);
   }
 }
 
