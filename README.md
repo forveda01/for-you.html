@@ -79,8 +79,17 @@ h1{color:#ff4d6d;}
   margin:10px;
 }
 
-.red{background:#ff4d6d;color:white;}
-.white{background:white;color:#333;}
+.red{
+  background:#ff4d6d;
+  color:white;
+}
+
+.white{
+  background:white;
+  color:#333;
+  border:2px solid #eee;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
 
 #result{margin-top:20px;line-height:1.6;}
 #hidden{margin-top:15px;opacity:0;transition:0.5s;}
@@ -123,7 +132,7 @@ h1{color:#ff4d6d;}
   <p>tap ❤️… otherwise 🤍</p>
 
   <button class="btn red" onclick="yesClick(event)">❤️</button>
-  <button class="btn white" id="whiteBtn" onclick="noClick()">🤍</button>
+  <button class="btn white" onclick="noClick()">🤍</button>
 </div>
 
 <div id="result"></div>
@@ -133,7 +142,7 @@ h1{color:#ff4d6d;}
 
 <script>
 
-// SAME TEXT AS BEFORE (UNCHANGED)
+// SAME TEXT
 setTimeout(showText,2800);
 
 const lines=[
@@ -164,7 +173,7 @@ function showText(){
   });
 }
 
-// floating hearts (optimized)
+// floating hearts optimized
 setInterval(()=>{
   if(document.querySelectorAll(".float-heart").length>8) return;
   let h=document.createElement("div");
@@ -174,14 +183,6 @@ setInterval(()=>{
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),6000);
 },1800);
-
-// white → red (emotional trick)
-setTimeout(()=>{
-  let w=document.getElementById("whiteBtn");
-  w.innerHTML="❤️";
-  w.classList.remove("white");
-  w.classList.add("red");
-},6000);
 
 // YES
 function yesClick(e){
@@ -197,10 +198,12 @@ function yesClick(e){
   },2000);
 }
 
-// NO (tease)
+// NO (simple, natural)
 function noClick(){
   document.getElementById("result").innerHTML=
-  "Hmm 🤍<br><br>or maybe you just don’t admit things easily 😏";
+  "Hmm okay 🤍<br><br>" +
+  "maybe it wasn't that special...<br>" +
+  "but I still meant what I said 🙂";
 }
 
 // explosion
