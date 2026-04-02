@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For You</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
 *{
@@ -21,16 +21,14 @@ body{
   align-items:center;
   background:black;
   overflow:hidden;
-  font-family:'Poppins',sans-serif;
+  color:white;
 }
 
-/* ✨ Stars Background */
+/* 🌌 Stars */
 .stars{
   position:absolute;
   width:100%;
   height:100%;
-  overflow:hidden;
-  z-index:0;
 }
 
 .star{
@@ -38,7 +36,7 @@ body{
   width:2px;
   height:2px;
   background:white;
-  opacity:0.8;
+  opacity:0.7;
   animation:twinkle 2s infinite ease-in-out;
 }
 
@@ -47,37 +45,60 @@ body{
   50%{opacity:1;}
 }
 
-/* 💎 Text Container */
+/* 💎 Container */
 .container{
   position:relative;
   z-index:2;
   text-align:center;
-  padding:30px;
+  padding:20px;
+  max-width:90%;
 }
 
-/* ✨ Shiny Text */
-.line{
-  color:white;
-  font-size:22px;
-  margin:12px 0;
+/* ✨ Main Heading */
+.main{
+  font-family:'Playfair Display',serif;
+  font-size:34px;
+  margin-bottom:20px;
   opacity:0;
-  transform:translateY(20px);
   animation:fadeUp 1s forwards;
-  text-shadow:0 0 10px rgba(255,255,255,0.8),
-              0 0 20px rgba(255,255,255,0.5);
 }
 
+/* 💖 Highlight line */
+.highlight{
+  font-family:'Playfair Display',serif;
+  font-size:36px;
+  font-weight:700;
+  margin:20px 0;
+  opacity:0;
+  animation:fadeUp 1s forwards;
+  color:#ffffff;
+
+  text-shadow:
+    0 0 8px rgba(255,255,255,0.8),
+    0 0 20px rgba(255,255,255,0.6),
+    0 0 35px rgba(255,255,255,0.4);
+}
+
+/* ✍ Normal lines */
+.line{
+  font-family:'Inter',sans-serif;
+  font-size:18px;
+  margin:10px 0;
+  opacity:0.85;
+  opacity:0;
+  animation:fadeUp 1s forwards;
+}
+
+/* ✨ Animation */
 @keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(20px);
+  }
   to{
     opacity:1;
     transform:translateY(0);
   }
-}
-
-/* 💫 Slight Glow Highlight */
-.highlight{
-  font-weight:500;
-  text-shadow:0 0 15px #fff, 0 0 30px #aaa;
 }
 
 </style>
@@ -85,16 +106,48 @@ body{
 
 <body>
 
-<!-- Stars -->
 <div class="stars" id="stars"></div>
 
-<!-- Content -->
-<div class="container" id="text"></div>
+<div class="container">
+
+<div class="main" style="animation-delay:0.5s;">
+Good morning Veda
+</div>
+
+<div class="highlight" style="animation-delay:1.5s;">
+Keep smiling… it suits you 🙂
+</div>
+
+<div class="line" style="animation-delay:2.5s;">
+Your smile is worth more than you think.
+</div>
+
+<div class="line" style="animation-delay:3.5s;">
+Don’t let anyone take that away from you.
+</div>
+
+<div class="line" style="animation-delay:4.5s;">
+And… don’t overthink things too much,
+</div>
+
+<div class="line" style="animation-delay:5.5s;">
+not everything really deserves space in your mind.
+</div>
+
+<div class="line" style="animation-delay:6.5s;">
+Some things are better felt…
+</div>
+
+<div class="line" style="animation-delay:7.5s;">
+than figured out.
+</div>
+
+</div>
 
 <script>
 
-/* ⭐ Create Stars */
-for(let i=0;i<120;i++){
+/* ⭐ Stars generator */
+for(let i=0;i<100;i++){
   let star=document.createElement("div");
   star.className="star";
   star.style.top=Math.random()*100+"vh";
@@ -102,33 +155,6 @@ for(let i=0;i<120;i++){
   star.style.animationDuration=(Math.random()*3+1)+"s";
   document.getElementById("stars").appendChild(star);
 }
-
-/* 💬 Text Lines (ELITE VERSION) */
-const lines=[
-"Good morning Veda",
-
-"<span class='highlight'>Keep smiling… it suits you 🙂</span>",
-
-"Your smile is worth more than you think.",
-"Don’t let anyone take that away from you.",
-
-"And… don’t overthink things too much,",
-"not everything really deserves space in your mind.",
-
-"Some things are better felt…",
-"than figured out."
-];
-
-/* ✨ Show text one by one */
-let container=document.getElementById("text");
-
-lines.forEach((line,i)=>{
-  let p=document.createElement("div");
-  p.className="line";
-  p.style.animationDelay=(i*1)+"s";
-  p.innerHTML=line;
-  container.appendChild(p);
-});
 
 </script>
 
